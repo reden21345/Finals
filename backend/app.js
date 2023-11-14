@@ -9,6 +9,6 @@ app.use(express.json());
 const coffees = require('./routes/coffee');
 
 //API
-app.use('/api/vi', coffees);
+app.use('/api/v1', coffees);
 
 module.exports = app
