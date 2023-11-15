@@ -42,3 +42,27 @@ exports.getSingleCoffee = async (req, res, next) => {
         coffee
     })
 }
+
+//Update Coffee Details
+exports.updateCoffee = async (req, res, next) => {
+
+    let coffee = await Coffee.findById(req.params.id);
+
+    if (!coffee) {
+        return res.status(404).json({
+            success: false,
+            message: "Coffee not found"
+        })
+    };
+
+    coffee = await Coffee.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false
+    });
+
+    res.status(200).json({
+        success: true,
+        coffee
+    })
+}
