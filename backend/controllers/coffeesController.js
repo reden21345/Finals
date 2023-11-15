@@ -13,9 +13,32 @@ exports.newCoffee = async (req, res, next) => {
 }
 
 //Get all Coffees
-exports.getCoffees = (req, res, next) => {
+exports.getCoffees = async (req, res, next) => {
+
+
+    const coffees = await Coffee.find();
+
     res.status(200).json({
         success: true,
-        message: "This route will show all Coffees in the database."
+        count: coffees.length,
+        coffees
+    });
+}
+
+//Get single Coffee Details
+exports.getSingleCoffee = async (req, res, next) => {
+
+    const coffee = await Coffee.findById(req.params.id);
+
+    if (!coffee) {
+        return res.status(404).json({
+            success: false,
+            message: "Coffee not found"
+        })
+    }
+
+    res.status(200).json({
+        success: true,
+        coffee
     })
 }
