@@ -1,0 +1,155 @@
+[
+    {
+        "name": "Arabica Coffee Beans",
+        "price": "12.99",
+        "description": "Enjoy the rich and aromatic flavors of our premium Arabica coffee beans. Sourced from the finest coffee plantations, these beans are carefully roasted to perfection, delivering a smooth and full-bodied coffee experience. Each 1lb bag of Arabica coffee beans is a treat for your taste buds, making it the perfect choice for coffee enthusiasts.",
+        "ratings": 4.8,
+        "images": [
+            {
+                "public_id": "coffees/7dfg98h32lgw8sdl93j",
+                "url": "https://res.cloudinary.com/coffee-time/image/upload/v1608062030/coffees/7dfg98h32lgw8sdl93j.jpg"
+            }
+        ],
+        "category": "Americano",
+        "seller": "Coffee Time",
+        "stock": 100,
+        "numOfReviews": 55,
+        "reviews": []
+    },
+    {
+        "name": "Italian Espresso Blend",
+        "price": "14.99",
+        "description": "Indulge in the intense and bold flavors of our Italian Espresso Blend. This 250g bag of finely ground coffee beans is perfect for brewing your favorite espresso shots. Roasted to perfection to deliver a strong and robust coffee experience.",
+        "ratings": 4.6,
+        "images": [
+            {
+                "public_id": "coffees/8jdh39k2jsl8hs9d7fg",
+                "url": "https://res.cloudinary.com/coffee-time/image/upload/v1608062030/coffees/8jdh39k2jsl8hs9d7fg.jpg"
+            }
+        ],
+        "category": "Espresso",
+        "seller": "Coffee Time",
+        "stock": 75,
+        "numOfReviews": 40,
+        "reviews": []
+    },
+    {
+        "name": "Vanilla Latte Mix",
+        "price": "9.99",
+        "description": "Create the perfect Vanilla Latte at home with our Latte Mix. This 16oz jar of creamy mix is infused with rich vanilla flavor. Just add to your espresso for a delightful latte experience.",
+        "ratings": 4.7,
+        "images": [
+            {
+                "public_id": "coffees/3dfk8s23v9ksd88h3j4",
+                "url": "https://res.cloudinary.com/coffee-time/image/upload/v1608062030/coffees/3dfk8s23v9ksd88h3j4.jpg"
+            }
+        ],
+        "category": "Latte",
+        "seller": "Coffee Time",
+        "stock": 60,
+        "numOfReviews": 35,
+        "reviews": []
+    },
+    {
+        "name": "Dark Chocolate Mocha Mix",
+        "price": "11.99",
+        "description": "Indulge in the delightful combination of dark chocolate and coffee with our Mocha Mix. This 12oz canister is perfect for creating rich and decadent mochas in the comfort of your home.",
+        "ratings": 4.5,
+        "images": [
+            {
+                "public_id": "coffees/9fdj4k56gj2w8sl29d0",
+                "url": "https://res.cloudinary.com/coffee-time/image/upload/v1608062030/coffees/9fdj4k56gj2w8sl29d0.jpg"
+            }
+        ],
+        "category": "Mocha",
+        "seller": "Coffee Time",
+        "stock": 50,
+        "numOfReviews": 28,
+        "reviews": []
+    },
+    {
+        "name": "Cold Brew Coffee Concentrate",
+        "price": "16.99",
+        "description": "Experience the smooth and refreshing taste of our Cold Brew Coffee Concentrate. This 32oz bottle is perfect for making iced coffee at home. Just dilute with water or milk and enjoy!",
+        "ratings": 4.9,
+        "images": [
+            {
+                "public_id": "coffees/7gfh39l2skj38lw89f4",
+                "url": "https://res.cloudinary.com/coffee-time/image/upload/v1608062030/coffees/7gfh39l2skj38lw89f4.jpg"
+            }
+        ],
+        "category": "Cold Brew",
+        "seller": "Coffee Time",
+        "stock": 70,
+        "numOfReviews": 42,
+        "reviews": []
+    },
+    {
+        "name": "Cappuccino Instant Coffee Mix",
+        "price": "8.99",
+        "description": "Enjoy the frothy and creamy goodness of our Cappuccino Instant Coffee Mix. This 8oz jar of mix is a quick and convenient way to make your favorite cappuccinos at home.",
+        "ratings": 4.7,
+        "images": [
+            {
+                "public_id": "coffees/6sdfg2ks8h3ljd4gh9s",
+                "url": "https://res.cloudinary.com/coffee-time/image/upload/v1608062030/coffees/6sdfg2ks8h3ljd4gh9s.jpg"
+            }
+        ],
+        "category": "Cappuccino",
+        "seller": "Coffee Time",
+        "stock": 55,
+        "numOfReviews": 38,
+        "reviews": []
+    },
+    {
+        "name": "Strong Black Coffee",
+        "price": "10.99",
+        "description": "For the true black coffee time, we present our Strong Black Coffee. This 1lb bag of ground coffee offers a robust and bold coffee experience without any additives or flavors.",
+        "ratings": 4.6,
+        "images": [
+            {
+                "public_id": "coffees/4d8h2h3lksjdfg89gj",
+                "url": "https://res.cloudinary.com/coffee-time/image/upload/v1608062030/coffees/4d8h2h3lksjdfg89gj.jpg"
+            }
+        ],
+        "category": "Black Coffee",
+        "seller": "Coffee Time",
+        "stock": 65,
+        "numOfReviews": 45,
+        "reviews": []
+    },
+    {
+        "name": "Caramel Frappuccino Mix",
+        "price": "13.99",
+        "description": "Satisfy your sweet cravings with our Caramel Frappuccino Mix. This 16oz jar of mix is perfect for creating delightful caramel frappuccinos with a hint of coffee and creaminess.",
+        "ratings": 4.7,
+        "images": [
+            {
+                "public_id": "coffees/2df7jsh9l2kjsdh83fg",
+                "url": "https://res.cloudinary.com/coffee-time/image/upload/v1608062030/coffees/2df7jsh9l2kjsdh83fg.jpg"
+            }
+        ],
+        "category": "Frappuccino",
+        "seller": "Coffee Time",
+        "stock": 60,
+        "numOfReviews": 32,
+        "reviews": []
+    },
+    {
+        "name": "Affogato Kit",
+        "price": "17.99",
+        "description": "Indulge in the classic Italian dessert with our Affogato Kit. This kit includes high-quality espresso coffee and premium vanilla ice cream, allowing you to create perfect affogato servings at home.",
+        "ratings": 4.8,
+        "images": [
+            {
+                "public_id": "coffees/5d9fgk8sh23lksjgj4",
+                "url": "https://res.cloudinary.com/coffee-time/image/upload/v1608062030/coffees/5d9fgk8sh23lksjgj4.jpg"
+            }
+        ],
+        "category": "Affogato",
+        "seller": "Coffee Time",
+        "stock": 48,
+        "numOfReviews": 30,
+        "reviews": []
+    }    
+]

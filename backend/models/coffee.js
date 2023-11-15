@@ -5,12 +5,12 @@ const coffeeSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please enter coffee name'],
         trim: true,
-        maxLength: [100, 'Product name cannot exceed 100 characters']
+        maxLength: [100, 'Coffee name cannot exceed 100 characters']
     },
     price: {
         type: Number,
         required: [true, 'Please enter coffee price'],
-        maxLength: [5, 'Product name cannot exceed 5 characters'],
+        maxLength: [5, 'Coffee name cannot exceed 5 characters'],
         default: 0.0
     },
     description: {
@@ -100,4 +100,4 @@ const coffeeSchema = new mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model('Coffee', coffeeSchema)
+module.exports = mongoose.model('coffee', coffeeSchema)
