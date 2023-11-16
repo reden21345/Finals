@@ -2,7 +2,7 @@ const Coffee = require('../models/coffee');
 
 
 //Create New Coffee Product
-exports.newCoffee = async (req, res, next) => {
+exports.createCoffee = async (req, res, next) => {
 
     const coffee = await Coffee.create(req.body);
 
@@ -64,5 +64,23 @@ exports.updateCoffee = async (req, res, next) => {
     res.status(200).json({
         success: true,
         coffee
+    })
+}
+
+//Delete Coffee
+exports.deleteCoffee = async (req, res, next) => {
+
+    const coffee = await Coffee.findByIdAndDelete(req.params.id);
+
+    if (!coffee) {
+        return res.status(404).json({
+            success: false,
+            message: "Coffee not found"
+        })
+    };
+
+    res.status(200).json({
+        success: true,
+        message: "Coffee is deleted."
     })
 }
