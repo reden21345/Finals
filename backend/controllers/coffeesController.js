@@ -1,5 +1,5 @@
 const Coffee = require('../models/coffee');
-
+const ErrorHandler = require('../utils/errorHandler');
 
 //Create New Coffee Product
 exports.createCoffee = async (req, res, next) => {
@@ -31,10 +31,7 @@ exports.getSingleCoffee = async (req, res, next) => {
     const coffee = await Coffee.findById(req.params.id);
 
     if (!coffee) {
-        return res.status(404).json({
-            success: false,
-            message: "Coffee not found"
-        })
+        return next(new ErrorHandler('Coffee not Found', 400));
     }
 
     res.status(200).json({
