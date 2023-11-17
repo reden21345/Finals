@@ -1,8 +1,10 @@
 const Coffee = require('../models/coffee');
+
 const ErrorHandler = require('../utils/errorHandler');
+const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
 
 //Create New Coffee Product
-exports.createCoffee = async (req, res, next) => {
+exports.createCoffee = catchAsyncErrors (async (req, res, next) => {
 
     const coffee = await Coffee.create(req.body);
 
@@ -10,10 +12,10 @@ exports.createCoffee = async (req, res, next) => {
         success: true,
         coffee
     })
-}
+})
 
 //Get all Coffees
-exports.getCoffees = async (req, res, next) => {
+exports.getCoffees = catchAsyncErrors (async (req, res, next) => {
 
 
     const coffees = await Coffee.find();
@@ -23,10 +25,10 @@ exports.getCoffees = async (req, res, next) => {
         count: coffees.length,
         coffees
     });
-}
+})
 
 //Get single Coffee Details
-exports.getSingleCoffee = async (req, res, next) => {
+exports.getSingleCoffee = catchAsyncErrors (async (req, res, next) => {
 
     const coffee = await Coffee.findById(req.params.id);
 
@@ -38,18 +40,15 @@ exports.getSingleCoffee = async (req, res, next) => {
         success: true,
         coffee
     })
-}
+})
 
 //Update Coffee Details
-exports.updateCoffee = async (req, res, next) => {
+exports.updateCoffee = catchAsyncErrors (async (req, res, next) => {
 
     let coffee = await Coffee.findById(req.params.id);
 
     if (!coffee) {
-        return res.status(404).json({
-            success: false,
-            message: "Coffee not found"
-        })
+        return next(new ErrorHandler('Coffee not Found', 400));
     };
 
     coffee = await Coffee.findByIdAndUpdate(req.params.id, req.body, {
@@ -62,22 +61,19 @@ exports.updateCoffee = async (req, res, next) => {
         success: true,
         coffee
     })
-}
+})
 
 //Delete Coffee
-exports.deleteCoffee = async (req, res, next) => {
+exports.deleteCoffee = catchAsyncErrors (async (req, res, next) => {
 
     const coffee = await Coffee.findByIdAndDelete(req.params.id);
 
     if (!coffee) {
-        return res.status(404).json({
-            success: false,
-            message: "Coffee not found"
-        })
+        return next(new ErrorHandler('Coffee not Found', 400));
     };
 
     res.status(200).json({
         success: true,
         message: "Coffee is deleted."
     })
-}
+})
