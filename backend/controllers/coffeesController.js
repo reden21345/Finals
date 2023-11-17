@@ -2,6 +2,7 @@ const Coffee = require('../models/coffee');
 
 const ErrorHandler = require('../utils/errorHandler');
 const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
+const APIFeatures = require('../utils/apiFeatures');
 
 //Create New Coffee Product
 exports.createCoffee = catchAsyncErrors (async (req, res, next) => {
@@ -17,8 +18,9 @@ exports.createCoffee = catchAsyncErrors (async (req, res, next) => {
 //Get all Coffees
 exports.getCoffees = catchAsyncErrors (async (req, res, next) => {
 
+    const apiFeatures = new APIFeatures(Coffee.find(), req.query).search();
 
-    const coffees = await Coffee.find();
+    const coffees = await apiFeatures.query;
 
     res.status(200).json({
         success: true,
