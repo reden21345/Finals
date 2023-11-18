@@ -9,7 +9,7 @@ exports.createCoffee = catchAsyncErrors (async (req, res, next) => {
 
     const coffee = await Coffee.create(req.body);
 
-    res.status(201).json({
+    res.status(200).json({
         success: true,
         coffee
     })
@@ -18,9 +18,12 @@ exports.createCoffee = catchAsyncErrors (async (req, res, next) => {
 //Get all Coffees
 exports.getCoffees = catchAsyncErrors (async (req, res, next) => {
 
+    const resPerPage = 4;
+
     const apiFeatures = new APIFeatures(Coffee.find(), req.query)
         .search()
-        .filter();
+        .filter()
+        .pagination(resPerPage);
 
     const coffees = await apiFeatures.query;
 
