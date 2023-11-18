@@ -18,7 +18,9 @@ exports.createCoffee = catchAsyncErrors (async (req, res, next) => {
 //Get all Coffees
 exports.getCoffees = catchAsyncErrors (async (req, res, next) => {
 
-    const apiFeatures = new APIFeatures(Coffee.find(), req.query).search();
+    const apiFeatures = new APIFeatures(Coffee.find(), req.query)
+        .search()
+        .filter();
 
     const coffees = await apiFeatures.query;
 
