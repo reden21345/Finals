@@ -8,9 +8,11 @@ app.use(express.json());
 
 //Route Imports
 const coffees = require('./routes/coffee');
+const auth = require('./routes/auth');
 
 //API
 app.use('/api/v1', coffees);
+app.use('/api/v1', auth);
 
 
 //Middleware to handle errors
