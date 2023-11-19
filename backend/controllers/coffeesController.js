@@ -4,7 +4,7 @@ const ErrorHandler = require('../utils/errorHandler');
 const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
 const APIFeatures = require('../utils/apiFeatures');
 
-//Create New Coffee Product
+//Create New Coffee Product => /api/v1/coffee/new
 exports.createCoffee = catchAsyncErrors (async (req, res, next) => {
 
     const coffee = await Coffee.create(req.body);
@@ -15,7 +15,7 @@ exports.createCoffee = catchAsyncErrors (async (req, res, next) => {
     })
 })
 
-//Get all Coffees
+//Get all Coffees => /api/v1/coffees
 exports.getCoffees = catchAsyncErrors (async (req, res, next) => {
 
     const resPerPage = 4;
@@ -36,7 +36,7 @@ exports.getCoffees = catchAsyncErrors (async (req, res, next) => {
     });
 })
 
-//Get single Coffee Details
+//Get single Coffee Details => /api/v1/coffee/:id
 exports.getSingleCoffee = catchAsyncErrors (async (req, res, next) => {
 
     const coffee = await Coffee.findById(req.params.id);
@@ -51,7 +51,7 @@ exports.getSingleCoffee = catchAsyncErrors (async (req, res, next) => {
     })
 })
 
-//Update Coffee Details
+//Update Coffee Details => /api/v1/admin/coffee/:id
 exports.updateCoffee = catchAsyncErrors (async (req, res, next) => {
 
     let coffee = await Coffee.findById(req.params.id);
@@ -72,7 +72,7 @@ exports.updateCoffee = catchAsyncErrors (async (req, res, next) => {
     })
 })
 
-//Delete Coffee
+//Delete Coffee => /api/v1/admin/coffee/:id
 exports.deleteCoffee = catchAsyncErrors (async (req, res, next) => {
 
     const coffee = await Coffee.findByIdAndDelete(req.params.id);
