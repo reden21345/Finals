@@ -10,8 +10,9 @@ const {
     deleteCoffee
 } = require('../controllers/coffeesController');
 
+const { isAuthenticatedUser } = require('../middlewares/auth');
 
-router.route('/coffees').get(getCoffees);
+router.route('/coffees').get(isAuthenticatedUser, getCoffees);
 router.route('/coffee/:id').get(getSingleCoffee);
 
 router.route('/coffee/new').post(createCoffee);
