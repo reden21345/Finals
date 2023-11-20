@@ -12,12 +12,14 @@ const {
 
 const { isAuthenticatedUser } = require('../middlewares/auth');
 
-router.route('/coffees').get(isAuthenticatedUser, getCoffees);
+router.route('/coffees').get(getCoffees);
 router.route('/coffee/:id').get(getSingleCoffee);
 
-router.route('/coffee/new').post(createCoffee);
+router.route('/coffee/new').post(isAuthenticatedUser, createCoffee);
 
-router.route('/admin/coffee/:id').put(updateCoffee).delete(deleteCoffee);
+router.route('/admin/coffee/:id')
+    .put(isAuthenticatedUser, updateCoffee)
+    .delete(isAuthenticatedUser, deleteCoffee);
 
 
 
