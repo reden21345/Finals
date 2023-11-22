@@ -7,6 +7,8 @@ const APIFeatures = require('../utils/apiFeatures');
 //Create New Coffee Product => /api/v1/coffee/new
 exports.createCoffee = catchAsyncErrors (async (req, res, next) => {
 
+    req.body.user = req.user.id;
+
     const coffee = await Coffee.create(req.body);
 
     res.status(201).json({
