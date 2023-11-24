@@ -137,3 +137,13 @@ exports.createCoffeeReview = catchAsyncErrors( async (req, res, next) => {
 	})
 
 }) 
+
+// Get coffee reviews => /api/v1/reviews
+exports.getCoffeeReviews = catchAsyncErrors( async (req, res, next) => {
+    const coffee = await Coffee.findById(req.query.id);
+
+    res.status(200).json({
+        success: true,
+        reviews: coffee.reviews
+    })
+})

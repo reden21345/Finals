@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
 
-
 const {
     getCoffees, 
     createCoffee, 
     getSingleCoffee, 
     updateCoffee,
     deleteCoffee,
-    createCoffeeReview
+    createCoffeeReview,
+    getCoffeeReviews
 } = require('../controllers/coffeesController');
 
 const { isAuthenticatedUser, authorizeRoles } = require('../middlewares/auth');
@@ -23,5 +23,6 @@ router.route('/admin/coffee/:id')
     .delete(isAuthenticatedUser, authorizeRoles('admin'), deleteCoffee);
 
 router.route('/review').put(isAuthenticatedUser, createCoffeeReview);
+router.route('/reviews').get(isAuthenticatedUser, getCoffeeReviews);
 
 module.exports = router;
