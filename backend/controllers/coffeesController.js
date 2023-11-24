@@ -147,3 +147,28 @@ exports.getCoffeeReviews = catchAsyncErrors( async (req, res, next) => {
         reviews: coffee.reviews
     })
 })
+
+// Delete coffee reviews => /api/v1/reviews
+exports.deleteReview = catchAsyncErrors( async (req, res, next) => {
+    const coffee = await Coffee.findById(req.query.coffeeId);
+
+    const reviews = coffee.reviews.filter(review => review._id.toString() !== req.query.id.toString());
+
+    const numOfReviews = reviews.length;
+
+    const ratings = coffee.reviews.reduce((acc, item) => item.rating + acc, 0) / reviews.length
+
+    await Coffee.findByIdAndUpdate(req.query.coffeeId, {
+        reviews,
+        ratings,
+        numOfReviews
+    }, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false
+    })
+
+    return res.status(200).json({
+        success: true
+    })
+})

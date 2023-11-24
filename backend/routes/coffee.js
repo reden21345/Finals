@@ -8,7 +8,8 @@ const {
     updateCoffee,
     deleteCoffee,
     createCoffeeReview,
-    getCoffeeReviews
+    getCoffeeReviews,
+    deleteReview
 } = require('../controllers/coffeesController');
 
 const { isAuthenticatedUser, authorizeRoles } = require('../middlewares/auth');
@@ -24,5 +25,6 @@ router.route('/admin/coffee/:id')
 
 router.route('/review').put(isAuthenticatedUser, createCoffeeReview);
 router.route('/reviews').get(isAuthenticatedUser, getCoffeeReviews);
+router.route('/reviews').delete(isAuthenticatedUser, deleteReview);
 
 module.exports = router;
