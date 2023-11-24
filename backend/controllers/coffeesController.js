@@ -88,3 +88,52 @@ exports.deleteCoffee = catchAsyncErrors (async (req, res, next) => {
         message: "Coffee is deleted."
     })
 })
+
+
+// REVIEWS FUNCTIONS
+
+// Create new preview => /api/v1/review
+exports.createCoffeeReview = catchAsyncErrors( async (req, res, next) => {
+
+    const { rating, comment, coffeeId } = req.body;
+
+    const review = {
+        user: req.user._id,
+        name: req.user.name,
+        rating: Number(rating),
+        comment
+    }
+
+    const coffee = await Coffee.findById(coffeeId);
+
+    const isReviewed = coffee.reviews.find(
+        r => r.user.toString() === req.user._id.toString()
+    )
+
+    if (isReviewed) {
+		coffee.reviews.forEach(review => {
+			if (review.user.toString() === req.user._id.toString()) {
+				review.comment = comment;
+				review.rating = rating;
+			}
+		})
+	} else {
+		coffee.reviews.push(review);
+		coffee.numOfReviews = coffee.reviews.length
+	}
+
+    coffee.ratings = coffee.reviews.reduce((acc, item) => item.rating + acc, 0) / coffee.reviews.length
+
+	await coffee.save({ validateBeforeSave: false });
+
+	// if (!coffee)
+	// 	return res.status(400).json({
+	// 		success: false,
+	// 		message: 'review not posted'
+	// 	})
+
+	res.status(200).json({
+		success: true
+	})
+
+}) 

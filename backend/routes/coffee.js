@@ -7,20 +7,21 @@ const {
     createCoffee, 
     getSingleCoffee, 
     updateCoffee,
-    deleteCoffee
+    deleteCoffee,
+    createCoffeeReview
 } = require('../controllers/coffeesController');
 
 const { isAuthenticatedUser, authorizeRoles } = require('../middlewares/auth');
 
-router.route('/coffees').get(isAuthenticatedUser, authorizeRoles('admin'), getCoffees);
+router.route('/coffees').get(isAuthenticatedUser, getCoffees);
 router.route('/coffee/:id').get(getSingleCoffee);
 
-router.route('/coffee/new').post(isAuthenticatedUser, createCoffee);
+router.route('/admin/coffee/new').post(isAuthenticatedUser, authorizeRoles('admin'), createCoffee);
 
 router.route('/admin/coffee/:id')
-    .put(isAuthenticatedUser, updateCoffee)
-    .delete(isAuthenticatedUser, deleteCoffee);
+    .put(isAuthenticatedUser, authorizeRoles('admin'), updateCoffee)
+    .delete(isAuthenticatedUser, authorizeRoles('admin'), deleteCoffee);
 
-
+router.route('/review').put(isAuthenticatedUser, createCoffeeReview);
 
 module.exports = router;
