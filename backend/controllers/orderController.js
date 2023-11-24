@@ -76,3 +76,33 @@ exports.allOrders = catchAyncErrors( async (req, res, next) => {
         orders
     })
 })
+
+// Update / Process order -ADMIN =>   /api/v1/admin/order/:id
+exports.updateOrder = async (req, res, next) => {
+    const order = await Order.findById(req.params.id)
+    // console.log(req.body.order)
+
+    if (order.orderStatus === 'Delivered') {
+        return next(new ErrorHandler('You have already delivered this order', 400))
+    }
+
+    order.orderItems.forEach(async item => {
+        await updateStock(item.coffee, item.quantity)
+    })
+
+    order.orderStatus = req.body.status
+    order.deliveredAt = Date.now()
+    
+    await order.save()
+    res.status(200).json({
+        success: true,
+    })
+}
+
+async function updateStock(id, quantity) {
+    const coffee = await Coffee.findById(id);
+
+    coffee.stock = coffee.stock - quantity;
+
+    await coffee.save({ validateBeforeSave: false })
+}
