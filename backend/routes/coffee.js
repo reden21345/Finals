@@ -14,7 +14,7 @@ const {
 
 const { isAuthenticatedUser, authorizeRoles } = require('../middlewares/auth');
 
-router.route('/coffees').get(isAuthenticatedUser, getCoffees);
+router.route('/coffees').get(getCoffees);
 router.route('/coffee/:id').get(getSingleCoffee);
 
 router.route('/admin/coffee/new').post(isAuthenticatedUser, authorizeRoles('admin'), createCoffee);
