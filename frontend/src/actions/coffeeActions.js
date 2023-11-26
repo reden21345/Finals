@@ -11,12 +11,12 @@ import {
 } from '../constants/coffeeConstants'
 
 // Get All Coffees
-export const getCoffees = (currentPage = 1) => async (dispatch) => {
+export const getCoffees = (keyword = '', currentPage = 1) => async (dispatch) => {
     try {
 
         dispatch({type: ALL_COFFEES_REQUEST});
 
-        const { data } = await axios.get(`/api/v1/coffees?page=${currentPage}`);
+        const { data } = await axios.get(`/api/v1/coffees?keyword=${keyword}&page=${currentPage}`);
 
         console.log(data);
 

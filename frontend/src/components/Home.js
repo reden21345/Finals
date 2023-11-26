@@ -1,4 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import Pagination from 'react-js-pagination';
 
 import MetaData from './layout/MetaData';
@@ -17,7 +18,9 @@ const Home = () => {
     const alert = useAlert();
     const dispatch = useDispatch();
 
-    const { loading, coffees, error, coffeeCount, resPerPage } = useSelector(state => state.coffees)
+    const { loading, coffees, error, coffeeCount, resPerPage } = useSelector(state => state.coffees);
+
+    const { keyword } = useParams();
 
     useEffect( () => {
 
@@ -26,9 +29,9 @@ const Home = () => {
             return alert.error(error)
         }
 
-        dispatch(getCoffees(currentPage));
+        dispatch(getCoffees(keyword, currentPage));
 
-    }, [dispatch, alert, error, currentPage])
+    }, [dispatch, alert, error, keyword, currentPage])
 
     function setCurrentPageNo(pageNumber) {
         setCurrentPage(pageNumber)
