@@ -20,7 +20,7 @@ exports.createCoffee = catchAsyncErrors (async (req, res, next) => {
 //Get all Coffees => /api/v1/coffees
 exports.getCoffees = catchAsyncErrors (async (req, res, next) => {
 
-    const resPerPage = 8;
+    const resPerPage = 4;
     const coffeeCount = await Coffee.countDocuments();
 
     const apiFeatures = new APIFeatures(Coffee.find(), req.query)
@@ -34,6 +34,7 @@ exports.getCoffees = catchAsyncErrors (async (req, res, next) => {
     res.status(200).json({
         success: true,
         coffeeCount,
+        resPerPage,
         coffees
     });
     

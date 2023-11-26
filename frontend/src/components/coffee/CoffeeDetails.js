@@ -32,6 +32,7 @@ const CoffeeDetails = () => {
     <Fragment>
       {loading ? <Loader /> : (
         <Fragment>
+          <MetaData title={coffee.name}/>
           <div className="row f-flex justify-content-around">
           <div className="col-12 col-lg-5 img-fluid" id="product_image">
               <Carousel pause='hover'>
