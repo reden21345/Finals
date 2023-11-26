@@ -12,7 +12,7 @@ import { getCoffees } from '../actions/coffeeActions';
 const Home = () => {
 
     const alert = useAlert();
-    const disptach = useDispatch();
+    const dispatch = useDispatch();
 
     const { loading, coffees, error, coffeeCount } = useSelector(state => state.coffees)
 
@@ -23,9 +23,9 @@ const Home = () => {
             return alert.error(error)
         }
 
-        disptach(getCoffees());
+        dispatch(getCoffees());
 
-    }, [disptach, alert, error])
+    }, [dispatch, alert, error])
 
   return (
     <Fragment>

@@ -12,21 +12,21 @@ import { getCoffeeDetails, ClearErrors } from '../../actions/coffeeActions';
 const CoffeeDetails = () => {
 
   const { id } = useParams();
-  const disptach = useDispatch();
+  const dispatch = useDispatch();
   const alert = useAlert();
 
   const {loading, error, coffee} = useSelector(state => state.coffeeDetails)
 
   useEffect(() => {
 
-    disptach(getCoffeeDetails(id))
+    dispatch(getCoffeeDetails(id))
 
     if(error) {
       alert.error(error)
-      disptach(ClearErrors())
+      dispatch(ClearErrors())
     }
 
-  }, [disptach, alert, error, id])
+  }, [dispatch, alert, error, id])
 
   return (
     <Fragment>

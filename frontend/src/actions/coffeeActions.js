@@ -11,23 +11,23 @@ import {
 } from '../constants/coffeeConstants'
 
 // Get All Coffees
-export const getCoffees = () => async (disptach) => {
+export const getCoffees = () => async (dispatch) => {
     try {
 
-        disptach({type: ALL_COFFEES_REQUEST});
+        dispatch({type: ALL_COFFEES_REQUEST});
 
         const { data } = await axios.get('/api/v1/coffees');
 
         console.log(data);
 
-        disptach({
+        dispatch({
             type: ALL_COFFEES_SUCCESS,
             payload: data
         });
         
     } catch (error) {
         console.log(error);
-        disptach({
+        dispatch({
             type: ALL_COFFEES_FAIL,
             payload: error.response.data.message
         });
@@ -35,21 +35,21 @@ export const getCoffees = () => async (disptach) => {
 }
 
 // Get Coffee Details
-export const getCoffeeDetails = (id) => async (disptach) => {
+export const getCoffeeDetails = (id) => async (dispatch) => {
     try {
 
-        disptach({type: COFFEE_DETAILS_REQUEST});
+        dispatch({type: COFFEE_DETAILS_REQUEST});
 
         const { data } = await axios.get(`/api/v1/coffee/${id}`);
 
-        disptach({
+        dispatch({
             type: COFFEE_DETAILS_SUCCESS,
             payload: data.coffee
         });
         
     } catch (error) {
         console.log(error);
-        disptach({
+        dispatch({
             type: COFFEE_DETAILS_FAIL,
             payload: error.response.data.message
         });
@@ -57,8 +57,8 @@ export const getCoffeeDetails = (id) => async (disptach) => {
 }
 
 // Clear Errors 
-export const ClearErrors = () => async (disptach) => {
-    disptach({
+export const ClearErrors = () => async (dispatch) => {
+    dispatch({
         type: CLEAR_ERRORS
     })
 }
