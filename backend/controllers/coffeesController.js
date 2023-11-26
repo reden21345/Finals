@@ -30,13 +30,13 @@ exports.getCoffees = catchAsyncErrors (async (req, res, next) => {
 
     const coffees = await apiFeatures.query;
 
-    setTimeout(() => {
-        res.status(200).json({
-            success: true,
-            coffeeCount,
-            coffees
-        });
-    }, 2000);
+
+    res.status(200).json({
+        success: true,
+        coffeeCount,
+        coffees
+    });
+    
 })
 
 //Get single Coffee Details => /api/v1/coffee/:id
