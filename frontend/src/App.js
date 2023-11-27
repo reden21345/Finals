@@ -8,6 +8,7 @@ import Home from './components/Home';
 import CoffeeDetails from './components/coffee/CoffeeDetails';
 
 import Login from './components/user/login';
+import Register from './components/user/Register';
 
 function App() {
   return (
@@ -20,7 +21,8 @@ function App() {
               <Route path = "/search/:keyword" element={<Home/>}/> 
               <Route path = "/coffee/:id" element={<CoffeeDetails/>} exact /> 
 
-              <Route path = "/login" element={<Login/>} exact /> 
+              <Route path = "/login" element={<Login/>} /> 
+              <Route path = "/register" element={<Register/>} /> 
             </Routes> 
           </div>
         <Footer />
