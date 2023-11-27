@@ -10,6 +10,7 @@ import CoffeeDetails from './components/coffee/CoffeeDetails';
 
 import Login from './components/user/login';
 import Register from './components/user/Register';
+import Profile from './components/user/Profile';
 
 import { loadUser } from './actions/userActions';
 import store from './store';
@@ -32,6 +33,7 @@ function App() {
 
               <Route path = "/login" element={<Login/>} /> 
               <Route path = "/register" element={<Register/>} /> 
+              <Route path = "/me" element={<Profile/>} exact/> 
             </Routes> 
           </div>
         <Footer />
