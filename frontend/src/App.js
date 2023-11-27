@@ -11,6 +11,7 @@ import CoffeeDetails from './components/coffee/CoffeeDetails';
 import Login from './components/user/login';
 import Register from './components/user/Register';
 import Profile from './components/user/Profile';
+import UpdateProfile from './components/user/UpdateProfile';
 
 import ProtectedRoute from './components/route/ProtectedRoute';
 import { loadUser } from './actions/userActions';
@@ -31,9 +32,11 @@ function App() {
             <Route path="/" element={<Home />} exact />
             <Route path="/search/:keyword" element={<Home />} />
             <Route path="/coffee/:id" element={<CoffeeDetails />} exact />
+
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/me" element={<Profile />} />
+            <Route path="/me" element={<Profile />} exact/>
+            <Route path="/me/update" element={<UpdateProfile />} exact/>
           </Routes>
         </div>
         <Footer />
