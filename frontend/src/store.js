@@ -3,10 +3,12 @@ import thunk from 'redux-thunk';
 import {composeWithDevTools} from 'redux-devtools-extension';
 
 import { CoffeesReducer, CoffeeDetailsReducer } from './reducers/coffeeReducers'
+import { authReducer } from './reducers/userReducers';
 
 const reducer = combineReducers({
     coffees: CoffeesReducer,
-    coffeeDetails: CoffeeDetailsReducer
+    coffeeDetails: CoffeeDetailsReducer,
+    auth: authReducer
 });
 
 
@@ -15,4 +17,4 @@ let initialState = {}
 const middleware = [thunk];
 const store = createStore(reducer, initialState, composeWithDevTools(applyMiddleware(...middleware)))
 
-export default store;   
+export default store;

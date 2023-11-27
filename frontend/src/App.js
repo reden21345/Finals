@@ -7,6 +7,8 @@ import Footer from './components/layout/Footer';
 import Home from './components/Home';
 import CoffeeDetails from './components/coffee/CoffeeDetails';
 
+import Login from './components/user/login';
+
 function App() {
   return (
     <Router>
@@ -17,6 +19,8 @@ function App() {
               <Route path = "/" element={<Home/>} exact /> 
               <Route path = "/search/:keyword" element={<Home/>}/> 
               <Route path = "/coffee/:id" element={<CoffeeDetails/>} exact /> 
+
+              <Route path = "/login" element={<Login/>} exact /> 
             </Routes> 
           </div>
         <Footer />
