@@ -23,7 +23,8 @@ export const CoffeesReducer = (state = { coffees: [] }, action) => {
                 loading: false,
                 coffees: action.payload.coffees,
                 coffeeCount: action.payload.coffeeCount,
-                resPerPage: action.payload.resPerPage
+                resPerPage: action.payload.resPerPage,
+                filteredCoffeesCount: action.payload.filteredCoffeesCount
             }
 
         case ALL_COFFEES_FAIL:

@@ -20,12 +20,28 @@ const Range = createSliderWithTooltip(Slider.Range);
 const Home = () => {
 
     const [currentPage, setCurrentPage] = useState(1);
-    const [price, setPrice] = useState([1, 500])
+    const [price, setPrice] = useState([1, 500]);
+    const [category, setCategory] = useState('');
+
+    const categories = [
+        'Americano',
+        'Black Coffee',
+        'Cappuccino',
+        'Espresso',
+        'Latte',
+        'Macchiato',
+        "Mocha",
+        'Cold Brew',
+        'Frappuccino',
+        'Iced Coffee',
+        'Affogato',
+        'Mazagran'
+    ]
 
     const alert = useAlert();
     const dispatch = useDispatch();
 
-    const { loading, coffees, error, coffeeCount, resPerPage } = useSelector(state => state.coffees);
+    const { loading, coffees, error, coffeeCount, resPerPage, filteredCoffeesCount } = useSelector(state => state.coffees);
 
     const { keyword } = useParams();
 
@@ -36,12 +52,17 @@ const Home = () => {
             return alert.error(error)
         }
 
-        dispatch(getCoffees(keyword, currentPage, price));
+        dispatch(getCoffees(keyword, currentPage, price, category));
 
-    }, [dispatch, alert, error, keyword, currentPage, price])
+    }, [dispatch, alert, error, keyword, currentPage, price, category])
 
     function setCurrentPageNo(pageNumber) {
         setCurrentPage(pageNumber)
+    }
+
+    let count = coffeeCount
+    if (keyword) {
+        count = filteredCoffeesCount
     }
 
   return (
@@ -79,6 +100,27 @@ const Home = () => {
                                             onChange={price => setPrice(price)}
                                         />
                                     </div>
+
+                                    <hr className="my-5" />
+                                    <div className="mt-5">
+                                        <h4 className="mb-3">
+                                            Categories
+                                        </h4>
+                                        <ul className="pl-0">
+                                            {categories.map(category => (
+                                                <li
+                                                    style={{
+                                                        cursor: 'pointer',
+                                                        listStyleType: 'none'
+                                                    }}
+                                                    key={category}
+                                                     onClick={() => setCategory(category)}
+                                                >
+                                                    {category}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                            </div>
                                 </div>
                                 <div className='col-6 col-md-9'>
                                     <div className='row'>
@@ -97,7 +139,7 @@ const Home = () => {
                     </div>
                 </section>
 
-                {resPerPage <= coffeeCount && (
+                {resPerPage <= count && (
                     <div className='d-flex justify-content-center mt-5'>
                     <Pagination 
                         activePage={currentPage}
