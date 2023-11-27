@@ -12,30 +12,30 @@ import Login from './components/user/login';
 import Register from './components/user/Register';
 import Profile from './components/user/Profile';
 
+import ProtectedRoute from './components/route/ProtectedRoute';
 import { loadUser } from './actions/userActions';
 import store from './store';
 
 function App() {
 
   useEffect(() => {
-    store.dispatch(loadUser())
-  }, [])
-  
+    store.dispatch(loadUser());
+  }, []);
+
   return (
     <Router>
       <div className="App">
         <Header />
-          <div className="container container-fluid">
-            <Routes>
-              <Route path = "/" element={<Home/>} exact /> 
-              <Route path = "/search/:keyword" element={<Home/>}/> 
-              <Route path = "/coffee/:id" element={<CoffeeDetails/>} exact /> 
-
-              <Route path = "/login" element={<Login/>} /> 
-              <Route path = "/register" element={<Register/>} /> 
-              <Route path = "/me" element={<Profile/>} exact/> 
-            </Routes> 
-          </div>
+        <div className="container container-fluid">
+          <Routes>
+            <Route path="/" element={<Home />} exact />
+            <Route path="/search/:keyword" element={<Home />} />
+            <Route path="/coffee/:id" element={<CoffeeDetails />} exact />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/me" element={<Profile />} />
+          </Routes>
+        </div>
         <Footer />
       </div>
     </Router>
