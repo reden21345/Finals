@@ -26,15 +26,16 @@ exports.getCoffees = catchAsyncErrors (async (req, res, next) => {
     const apiFeatures = new APIFeatures(Coffee.find(), req.query)
         .search()
         .filter()
-        .pagination(resPerPage);
 
-    const coffees = await apiFeatures.query;
-
+    apiFeatures.pagination(resPerPage);
+    let coffees = await apiFeatures.query;
+    let filteredCoffeesCount = coffees.length;
 
     res.status(200).json({
         success: true,
         coffeeCount,
         resPerPage,
+        filteredCoffeesCount,
         coffees
     });
     
