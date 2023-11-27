@@ -3,6 +3,7 @@ import { Routes, Route, Link, useLoaderData } from 'react-router-dom'
 
 import { useDispatch, useSelector } from 'react-redux';
 import { useAlert } from 'react-alert';
+import { logout } from '../../actions/userActions';
 
 import Search from './Search';
 
@@ -11,7 +12,12 @@ const Header = () => {
     const alert = useAlert();
     const dispatch = useDispatch();
 
-    const { user, loading } = useSelector(state => state.auth)
+    const { user, loading } = useSelector(state => state.auth);
+
+    const logoutHandler = () => {
+        dispatch(logout());
+        alert.success('Logout Successfully')
+    }
 
     return (
         <Fragment>
@@ -54,7 +60,7 @@ const Header = () => {
                                 <Link className="dropdown-item" to="/me">Profile</Link>
 
                                 <Link
-                                    className="dropdown-item text-danger" to="/" 
+                                    className="dropdown-item text-danger" to="/" onClick={logoutHandler} 
                                 >
                                     Logout
                                 </Link>
