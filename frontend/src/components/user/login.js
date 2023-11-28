@@ -23,6 +23,7 @@ const Login = () => {
     useEffect(() => {
 
         if(isAuthenticated){
+            alert.success('Login Successfully')
             navigate('/');
         }
 
@@ -35,7 +36,6 @@ const Login = () => {
     const submitHandler = (e) => {
         e.preventDefault();
         dispatch(login(email, password))
-        alert.success('Login Successfully')
     }
 
   return (

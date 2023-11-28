@@ -30,6 +30,7 @@ const Register = () => {
     useEffect(() => {
 
         if(isAuthenticated){
+            alert.success('You are now a user!');
             navigate('/');
         }
 
