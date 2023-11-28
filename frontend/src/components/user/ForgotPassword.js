@@ -24,7 +24,7 @@ const ForgotPassword = () => {
         }
 
         if(message) {
-            alert.success('Password recovery sent to email!')
+            alert.success('Recovery Email Sent')
         }
 
     }, [dispatch, alert, error, message])
