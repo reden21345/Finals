@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import MetaData from '../layout/MetaData';
 
@@ -10,8 +10,11 @@ import { addItemToCart, removeItemFromCart } from '../../actions/cartActions';
 const Cart = () => {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const alert = useAlert();
 
     const { cartItems } = useSelector(state => state.cart);
+    const { isAuthenticated } = useSelector(state => state.auth);
 
     const removeCartItemHandler = (id) => {
         dispatch(removeItemFromCart(id))
@@ -32,6 +35,16 @@ const Cart = () => {
     
         dispatch(addItemToCart(id, newQty))
       }
+
+    const checkoutHandler = () => {
+
+        if (isAuthenticated) {
+          navigate('/shipping');
+        } else {
+          alert.error('You must be logged in to checkout.');
+          navigate('/login');
+        }
+    }
 
   return (
     <Fragment>
@@ -92,7 +105,7 @@ const Cart = () => {
                             <p>Est. total: <span className="order-summary-values">${cartItems.reduce((acc, item) => acc + item.quantity * item.price, 0).toFixed(2)}</span></p>
             
                             <hr />
-                            <button id="checkout_btn" className="btn btn-primary btn-block">Check out</button>
+                            <button id="checkout_btn" className="btn btn-primary btn-block" onClick={checkoutHandler}>Check out</button>
                         </div>
                     </div>
                 </div>

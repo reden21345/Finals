@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { Link, useNavigate  } from 'react-router-dom';
+import { Link, useNavigate, useLocation  } from 'react-router-dom';
 
 import Loader from '../layout/Loader';
 import MetaData from '../layout/MetaData';
@@ -11,6 +11,7 @@ import { login, ClearErrors} from '../../actions/userActions';
 const Login = () => {
 
     const navigate = useNavigate();
+    let location = useLocation()
     
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -19,6 +20,7 @@ const Login = () => {
     const dispatch = useDispatch();
 
     const { isAuthenticated, error, loading } = useSelector(state => state.auth);
+
 
     useEffect(() => {
 
