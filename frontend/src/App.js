@@ -8,6 +8,8 @@ import Footer from './components/layout/Footer';
 import Home from './components/Home';
 import CoffeeDetails from './components/coffee/CoffeeDetails';
 
+import Cart from './components/cart/Cart';
+
 import Login from './components/user/login';
 import Register from './components/user/Register';
 import Profile from './components/user/Profile';
@@ -35,6 +37,8 @@ function App() {
             <Route path="/" element={<Home />} exact />
             <Route path="/search/:keyword" element={<Home />} />
             <Route path="/coffee/:id" element={<CoffeeDetails />} exact />
+
+            <Route path="/cart" element={<Cart />} exact />
 
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
