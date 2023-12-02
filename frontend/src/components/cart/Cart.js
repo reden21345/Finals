@@ -5,13 +5,17 @@ import MetaData from '../layout/MetaData';
 
 import { useAlert } from 'react-alert';
 import { useDispatch, useSelector } from 'react-redux';
-import { addItemToCart } from '../../actions/cartActions';
+import { addItemToCart, removeItemFromCart } from '../../actions/cartActions';
 
 const Cart = () => {
 
     const dispatch = useDispatch();
 
     const { cartItems } = useSelector(state => state.cart);
+
+    const removeCartItemHandler = (id) => {
+        dispatch(removeItemFromCart(id))
+    }
 
     const increaseQty = (id, quantity, stock) => {
         const newQty = quantity + 1;
@@ -32,7 +36,7 @@ const Cart = () => {
   return (
     <Fragment>
         <MetaData title={"Your Cart"}/>
-        {cartItems.length === 0 ? <h2 classNameName="mt-5">Your Cart is Empty</h2> : (
+        {cartItems.length === 0 ? <h2 className="mt-5">Your Cart is Empty</h2> : (
             <Fragment>
                 <h2 className="mt-5">Your Cart: <b>{cartItems.length} items</b></h2>
         
@@ -42,7 +46,7 @@ const Cart = () => {
                         {cartItems.map(item => (
                             <Fragment>
                                 <hr />
-                                <div className="cart-item">
+                                <div className="cart-item" key={item.coffee}>
                                     <div className="row">
                                         <div className="col-4 col-lg-3">
                                             <img src={item.image} alt="Coffee" height="90" width="115" />
@@ -70,7 +74,7 @@ const Cart = () => {
                                         </div>
 
                                         <div className="col-4 col-lg-1 mt-4 mt-lg-0">
-                                            <i id="delete_cart_item" className="fa fa-trash btn btn-danger"></i>
+                                            <i id="delete_cart_item" className="fa fa-trash btn btn-danger" onClick={() => removeCartItemHandler(item.coffee)}></i>
                                         </div>
 
                                     </div>
