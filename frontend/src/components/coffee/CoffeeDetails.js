@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Carousel } from 'react-bootstrap';
 
@@ -10,6 +10,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getCoffeeDetails, ClearErrors } from '../../actions/coffeeActions';
 
 const CoffeeDetails = () => {
+
+  const [quantity, setQuantity] = useState(1);
 
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -27,6 +29,24 @@ const CoffeeDetails = () => {
     }
 
   }, [dispatch, alert, error, id])
+
+  const increaseQty = () => {
+    const count = document.querySelector('.count')
+
+    if (count.valueAsNumber >= coffee.stock) return;
+
+    const qty = count.valueAsNumber + 1;
+    setQuantity(qty);
+  }
+
+  const decreaseQty = () => {
+    const count = document.querySelector('.count')
+
+    if (count.valueAsNumber <= 1) return;
+
+    const qty = count.valueAsNumber - 1;
+    setQuantity(qty);
+  }
 
   return (
     <Fragment>
@@ -59,11 +79,11 @@ const CoffeeDetails = () => {
 
             <p id="product_price">${coffee.price}</p>
             <div className="stockCounter d-inline">
-                <span className="btn btn-danger minus">-</span>
+                <span className="btn btn-danger minus" onClick={decreaseQty}>-</span>
 
-                <input type="number" className="form-control count d-inline" value="1" readOnly />
+                <input type="number" className="form-control count d-inline" value={quantity} readOnly />
 
-                <span className="btn btn-primary plus">+</span>
+                <span className="btn btn-primary plus" onClick={increaseQty}>+</span>
             </div>
              <button type="button" id="cart_btn" className="btn btn-primary d-inline ml-4">Add to Cart</button>
 
