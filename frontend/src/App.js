@@ -14,6 +14,7 @@ import ConfirmOrder from './components/cart/ConfirmOrder';
 import OrderSuccess from './components/cart/OrderSuccess'
 
 import ListOrders from './components/order/ListOrders'
+import OrderDetails from './components/order/OrderDetails';
 
 import Login from './components/user/login';
 import Register from './components/user/Register';
@@ -67,6 +68,8 @@ function App() {
             <Route path="/success" element={<OrderSuccess />} />
 
             <Route path="/orders/me" element={<ListOrders />} exact/>
+            <Route path="/order/:id" element={<OrderDetails />} exact/>
+
 
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
