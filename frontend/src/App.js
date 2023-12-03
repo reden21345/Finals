@@ -1,5 +1,5 @@
 import './App.css';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Header from './components/layout/Header';
@@ -23,11 +23,28 @@ import NewPassword from './components/user/NewPassword';
 import ProtectedRoute from './components/route/ProtectedRoute';
 import { loadUser } from './actions/userActions';
 import store from './store';
+import axios from 'axios';
+
+// Payments
+import Payment from './components/cart/Payment';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+
 
 function App() {
 
+  const [stripeApiKey, setStripeApiKey] = useState('')
+  
   useEffect(() => {
     store.dispatch(loadUser());
+
+    async function getStripeApiKey() {
+      const { data } = await axios.get('/api/v1/stripeapi');
+      setStripeApiKey(data.stripeApiKey);
+    }
+
+    getStripeApiKey();
+
   }, []);
 
   return (
@@ -53,6 +70,13 @@ function App() {
             <Route path="/password/reset/:token" element={<NewPassword />} exact/>
 
           </Routes>
+          {stripeApiKey &&
+              <Elements stripe={loadStripe(stripeApiKey)}>
+                <Routes>
+                  <Route path="/payment" element={<Payment/>} />
+                </Routes>
+              </Elements>
+            }
         </div>
         <Footer />
       </div>
