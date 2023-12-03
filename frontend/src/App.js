@@ -13,6 +13,8 @@ import Shipping from './components/cart/Shipping';
 import ConfirmOrder from './components/cart/ConfirmOrder';
 import OrderSuccess from './components/cart/OrderSuccess'
 
+import ListOrders from './components/order/ListOrders'
+
 import Login from './components/user/login';
 import Register from './components/user/Register';
 import Profile from './components/user/Profile';
@@ -63,6 +65,8 @@ function App() {
             <Route path="/shipping" element={<Shipping />} />
             <Route path="/order/confirm" element={<ConfirmOrder />} />
             <Route path="/success" element={<OrderSuccess />} />
+
+            <Route path="/orders/me" element={<ListOrders />} exact/>
 
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
