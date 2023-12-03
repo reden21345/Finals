@@ -4,21 +4,27 @@ import { Carousel } from 'react-bootstrap';
 
 import Loader from '../layout/Loader';
 import MetaData from '../layout/MetaData';
+import ListReviews from '../review/ListReviews'
 
 import { useAlert } from 'react-alert';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCoffeeDetails, ClearErrors } from '../../actions/coffeeActions';
+import { getCoffeeDetails, newReview, ClearErrors } from '../../actions/coffeeActions';
 import { addItemToCart } from '../../actions/cartActions';
+import { NEW_REVIEW_RESET } from '../../constants/coffeeConstants'
 
 const CoffeeDetails = () => {
 
   const [quantity, setQuantity] = useState(1);
+  const [rating, setRating] = useState(0);
+    const [comment, setComment] = useState('');
 
   const { id } = useParams();
   const dispatch = useDispatch();
   const alert = useAlert();
 
   const {loading, error, coffee} = useSelector(state => state.coffeeDetails)
+  const { user } = useSelector(state => state.auth)
+  const { error: reviewError, success } = useSelector(state => state.newReview)
 
   useEffect(() => {
 
@@ -29,7 +35,17 @@ const CoffeeDetails = () => {
       dispatch(ClearErrors())
     }
 
-  }, [dispatch, alert, error, id])
+    if (reviewError) {
+      alert.error(reviewError);
+      dispatch(ClearErrors())
+  }
+
+  if (success) {
+      alert.success('Reivew posted successfully')
+      dispatch({ type: NEW_REVIEW_RESET })
+  }
+
+  }, [dispatch, alert, error, id, success, reviewError])
 
   const addToCart = () => {
     dispatch(addItemToCart(id, quantity));
@@ -54,25 +70,73 @@ const CoffeeDetails = () => {
     setQuantity(qty);
   }
 
+  function setUserRatings() {
+    const stars = document.querySelectorAll('.star');
+
+    stars.forEach((star, index) => {
+        star.starValue = index + 1;
+
+        ['click', 'mouseover', 'mouseout'].forEach(function (e) {
+            star.addEventListener(e, showRatings);
+        })
+    })
+
+    function showRatings(e) {
+        stars.forEach((star, index) => {
+            if (e.type === 'click') {
+                if (index < this.starValue) {
+                    star.classList.add('orange');
+
+                    setRating(this.starValue)
+                } else {
+                    star.classList.remove('orange')
+                }
+            }
+
+            if (e.type === 'mouseover') {
+                if (index < this.starValue) {
+                    star.classList.add('yellow');
+                } else {
+                    star.classList.remove('yellow')
+                }
+            }
+
+            if (e.type === 'mouseout') {
+                star.classList.remove('yellow')
+            }
+        })
+    }
+}
+
+const reviewHandler = () => {
+    const formData = new FormData();
+
+    formData.set('rating', rating);
+    formData.set('comment', comment);
+    formData.set('coffeeId', id);
+
+    dispatch(newReview(formData));
+}
+
   return (
     <Fragment>
       {loading ? <Loader /> : (
         <Fragment>
           <MetaData title={coffee.name}/>
           <div className="row f-flex justify-content-around">
-          <div className="col-12 col-lg-5 img-fluid" id="product_image">
-              <Carousel pause='hover'>
-                {coffee.images && coffee.images.map(image => (
-                  <Carousel.Item key={image.public_id}>
-                    <img className="d-block w-100" src={image.url} alt={coffee.title} />
-                  </Carousel.Item>
-                ))}
-              </Carousel>
-          </div>
+            <div className="col-12 col-lg-5 img-fluid" id="coffee_image">
+                <Carousel pause='hover'>
+                  {coffee.images && coffee.images.map(image => (
+                    <Carousel.Item key={image.public_id}>
+                      <img className="d-block w-100" src={image.url} alt={coffee.title} />
+                    </Carousel.Item>
+                  ))}
+                </Carousel>
+            </div>
 
         <div className="col-12 col-lg-5 mt-5">
             <h3>{coffee.name}</h3>
-            <p id="product_id">Product # {coffee._id}</p>
+            <p id="coffee_id">Coffee # {coffee._id}</p>
 
             <hr/>
 
@@ -83,7 +147,7 @@ const CoffeeDetails = () => {
 
             <hr/>
 
-            <p id="product_price">${coffee.price}</p>
+            <p id="coffee_price">${coffee.price}</p>
             <div className="stockCounter d-inline">
                 <span className="btn btn-danger minus" onClick={decreaseQty}>-</span>
 
@@ -102,51 +166,64 @@ const CoffeeDetails = () => {
             <h4 className="mt-2">Description:</h4>
             <p>{coffee.description}</p>
             <hr/>
-            <p id="product_seller mb-3">Sold by: <strong>{coffee.seller}</strong></p>
+            <p id="coffee_seller mb-3">Sold by: <strong>{coffee.seller}</strong></p>
     
-    <button id="review_btn" type="button" className="btn btn-primary mt-4" data-toggle="modal" data-target="#ratingModal">
-                        Submit Your Review
-            </button>
-    
-    <div className="row mt-2 mb-5">
-                <div className="rating w-50">
+            {user ? <button id="review_btn" type="button" className="btn btn-primary mt-4" data-toggle="modal" data-target="#ratingModal" onClick={setUserRatings}>
+                                Submit Your Review
+                            </button>
+                                :
+                                <div className="alert alert-danger mt-5" type='alert'>Login to post your review.</div>
+                            }
 
-                    <div className="modal fade" id="ratingModal" tabIndex="-1" role="dialog" aria-labelledby="ratingModalLabel" aria-hidden="true">
-                        <div className="modal-dialog" role="document">
-                            <div className="modal-content">
-                                <div className="modal-header">
-                                    <h5 className="modal-title" id="ratingModalLabel">Submit Review</h5>
-                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
+
+                            <div className="row mt-2 mb-5">
+                                <div className="rating w-50">
+
+                                    <div className="modal fade" id="ratingModal" tabIndex="-1" role="dialog" aria-labelledby="ratingModalLabel" aria-hidden="true">
+                                        <div className="modal-dialog" role="document">
+                                              <div className="modal-content">
+                                                <div className="modal-header">
+                                                    <h5 className="modal-title" id="ratingModalLabel">Submit Review</h5>
+                                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div className="modal-body">
+
+                                                    <ul className="stars" >
+                                                        <li className="star"><i className="fa fa-star"></i></li>
+                                                        <li className="star"><i className="fa fa-star"></i></li>
+                                                        <li className="star"><i className="fa fa-star"></i></li>
+                                                        <li className="star"><i className="fa fa-star"></i></li>
+                                                        <li className="star"><i className="fa fa-star"></i></li>
+                                                    </ul>
+
+                                                    <textarea
+                                                        name="review"
+                                                        id="review" className="form-control mt-3"
+                                                        value={comment}
+                                                        onChange={(e) => setComment(e.target.value)}
+                                                    >
+
+                                                    </textarea>
+
+                                                    <button className="btn my-3 float-right review-btn px-4 text-white" onClick={reviewHandler} data-dismiss="modal" aria-label="Close">Submit</button>
+                                                </div>
+                                              </div>
+                                        </div>
+                                    </div>
+
                                 </div>
-                                <div className="modal-body">
-
-                                    <ul className="stars" >
-                                        <li className="star"><i className="fa fa-star"></i></li>
-                                        <li className="star"><i className="fa fa-star"></i></li>
-                                        <li className="star"><i className="fa fa-star"></i></li>
-                                        <li className="star"><i className="fa fa-star"></i></li>
-                                        <li className="star"><i className="fa fa-star"></i></li>
-                                    </ul>
-
-                                    <textarea name="review" id="review" className="form-control mt-3">
-
-                                    </textarea>
-
-                                    <button className="btn my-3 float-right review-btn px-4 text-white" data-dismiss="modal" aria-label="Close">Submit</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
         
-        </div>
+                              </div>
 
-    </div>
+                  </div>
 
-</div>
+              </div>
+
+                    {coffee.reviews && coffee.reviews.length > 0 && (
+                        <ListReviews reviews={coffee.reviews} />
+                    )}
         </Fragment>
       )}
     </Fragment>
