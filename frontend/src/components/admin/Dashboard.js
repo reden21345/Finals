@@ -10,6 +10,8 @@ import { getAdminCoffees } from '../../actions/coffeeActions';
 import { allOrders } from '../../actions/orderActions';
 import { allUsers } from '../../actions/userActions';
 
+import CoffeeSalesChart from './CoffeeSalesChart';
+
 const Dashboard = () => {
 
     const dispatch = useDispatch();
@@ -111,8 +113,15 @@ const Dashboard = () => {
                                     </div>
                                 </div>
                             </div>
+                            <br/><br/>
                         </Fragment>
                     )}
+
+                    <Fragment>
+                        <div className="text-center card-font-size">Sales Chart<br />
+                            <CoffeeSalesChart />
+                        </div>
+                    </Fragment>
 
                 </div>
             </div>

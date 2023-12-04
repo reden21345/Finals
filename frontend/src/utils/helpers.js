@@ -8,15 +8,15 @@
 //     next();
 // };
 
-// export const getToken = () => {
-//     if (window !== 'undefined') {
-//         if (sessionStorage.getItem('token')) {
-//             return JSON.parse(sessionStorage.getItem('token'));
-//         } else {
-//             return false;
-//         }
-//     }
-// };
+export const getToken = () => {
+    if (window !== 'undefined') {
+        if (sessionStorage.getItem('token')) {
+            return JSON.parse(sessionStorage.getItem('token'));
+        } else {
+            return false;
+        }
+    }
+};
 
 // access user name from session storage
 export const getUser = () => {
