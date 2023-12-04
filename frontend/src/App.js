@@ -34,6 +34,7 @@ import axios from 'axios';
 
 // Admin
 import Dashboard from './components/admin/Dashboard';
+import CoffeesList from './components/admin/CoffeesList';
 
 // Payments
 import Payment from './components/cart/Payment';
@@ -91,14 +92,6 @@ function App() {
 
           {/* User Routes */}
           <Routes>
-            <Route
-              path="/dashboard"
-              element={
-                <ProtectedRoute isAdmin={true}>
-                  <Dashboard />
-                </ProtectedRoute>
-              }
-            />
             <Route path="/me" element={
                 <ProtectedRoute >
                   <Profile />
@@ -150,6 +143,14 @@ function App() {
               element={
                 <ProtectedRoute isAdmin={true}>
                   <Dashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/coffees"
+              element={
+                <ProtectedRoute isAdmin={true}>
+                  <CoffeesList />
                 </ProtectedRoute>
               }
             />

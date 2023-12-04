@@ -41,6 +41,18 @@ exports.getCoffees = catchAsyncErrors (async (req, res, next) => {
     
 })
 
+// Get all coffees (Admin)  =>   /api/v1/admin/coffees
+exports.getAdminCoffees = catchAsyncErrors(async (req, res, next) => {
+
+    const coffees = await Coffee.find();
+
+    res.status(200).json({
+        success: true,
+        coffees
+    })
+
+})
+
 //Get single Coffee Details => /api/v1/coffee/:id
 exports.getSingleCoffee = catchAsyncErrors (async (req, res, next) => {
 

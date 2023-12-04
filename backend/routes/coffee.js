@@ -9,7 +9,8 @@ const {
     deleteCoffee,
     createCoffeeReview,
     getCoffeeReviews,
-    deleteReview
+    deleteReview,
+    getAdminCoffees
 } = require('../controllers/coffeesController');
 
 const { isAuthenticatedUser, authorizeRoles } = require('../middlewares/auth');
@@ -17,6 +18,7 @@ const { isAuthenticatedUser, authorizeRoles } = require('../middlewares/auth');
 router.route('/coffees').get(getCoffees);
 router.route('/coffee/:id').get(getSingleCoffee);
 
+router.route('/admin/coffees').get(getAdminCoffees);
 router.route('/admin/coffee/new').post(isAuthenticatedUser, authorizeRoles('admin'), createCoffee);
 
 router.route('/admin/coffee/:id')

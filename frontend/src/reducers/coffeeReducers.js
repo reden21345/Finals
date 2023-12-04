@@ -2,6 +2,9 @@ import {
     ALL_COFFEES_REQUEST,
     ALL_COFFEES_SUCCESS,
     ALL_COFFEES_FAIL,
+    ADMIN_COFFEES_REQUEST,
+    ADMIN_COFFEES_SUCCESS,
+    ADMIN_COFFEES_FAIL,
     COFFEE_DETAILS_REQUEST,
     COFFEE_DETAILS_SUCCESS,
     COFFEE_DETAILS_FAIL,
@@ -17,6 +20,7 @@ export const CoffeesReducer = (state = { coffees: [] }, action) => {
     switch(action.type) {
 
         case ALL_COFFEES_REQUEST:
+        case ADMIN_COFFEES_REQUEST:
             return {
                 loading: true,
                 coffees: []
@@ -31,7 +35,14 @@ export const CoffeesReducer = (state = { coffees: [] }, action) => {
                 filteredCoffeesCount: action.payload.filteredCoffeesCount
             }
 
+        case ADMIN_COFFEES_SUCCESS:
+            return {
+                loading: false,
+                coffees: action.payload 
+            }
+
         case ALL_COFFEES_FAIL:
+        case ADMIN_COFFEES_FAIL:
             return {
                 loading: false,
                 error: action.payload

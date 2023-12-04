@@ -4,6 +4,9 @@ import {
     ALL_COFFEES_REQUEST,
     ALL_COFFEES_SUCCESS,
     ALL_COFFEES_FAIL,
+    ADMIN_COFFEES_REQUEST,
+    ADMIN_COFFEES_SUCCESS,
+    ADMIN_COFFEES_FAIL,
     COFFEE_DETAILS_REQUEST,
     COFFEE_DETAILS_SUCCESS,
     COFFEE_DETAILS_FAIL,
@@ -87,6 +90,27 @@ export const newReview = (reviewData) => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: NEW_REVIEW_FAIL,
+            payload: error.response.data.message
+        })
+    }
+}
+
+export const getAdminCoffees = () => async (dispatch) => {
+    try {
+
+        dispatch({ type: ADMIN_COFFEES_REQUEST })
+
+        const { data } = await axios.get(`/api/v1/admin/coffees`)
+
+        dispatch({
+            type: ADMIN_COFFEES_SUCCESS,
+            payload: data.coffees
+        })
+
+    } catch (error) {
+
+        dispatch({
+            type: ADMIN_COFFEES_FAIL,
             payload: error.response.data.message
         })
     }

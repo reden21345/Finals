@@ -6,9 +6,25 @@ import Loader from '../layout/Loader'
 import Sidebar from './Sidebar'
 
 import { useDispatch, useSelector } from 'react-redux'
-
+import { getAdminCoffees } from '../../actions/coffeeActions';
 
 const Dashboard = () => {
+
+    const dispatch = useDispatch();
+
+    const { coffees } = useSelector(state => state.coffees)
+
+    let outOfStock = 0;
+    coffees.forEach(coffee => {
+        if (coffee.stock === 0) {
+            outOfStock += 1;
+        }
+    })
+
+    useEffect(() => {
+        dispatch(getAdminCoffees())
+
+    }, [dispatch])
 
     return (
         <Fragment>
@@ -38,7 +54,8 @@ const Dashboard = () => {
                                 <div className="col-xl-3 col-sm-6 mb-3">
                                     <div className="card text-white bg-success o-hidden h-100">
                                         <div className="card-body">
-                                            <div className="text-center card-font-size">Coffees<br /> <b>12</b></div>
+                                            <div className="text-center card-font-size">Coffees<br /> <b>
+                                            {coffees && coffees.length} </b></div>
                                         </div>
                                         <Link className="card-footer text-white clearfix small z-1" to="/admin/coffees">
                                             <span className="float-left">View Details</span>
@@ -83,7 +100,7 @@ const Dashboard = () => {
                                 <div className="col-xl-3 col-sm-6 mb-3">
                                     <div className="card text-white bg-warning o-hidden h-100">
                                         <div className="card-body">
-                                            <div className="text-center card-font-size">Out of Stock<br /> <b>3</b></div>
+                                            <div className="text-center card-font-size">Out of Stock<br /> <b>{outOfStock} </b></div>
                                         </div>
                                     </div>
                                 </div>
