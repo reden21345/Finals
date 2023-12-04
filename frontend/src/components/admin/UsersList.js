@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { MDBDataTable } from 'mdbreact'
 
 import MetaData from '../layout/MetaData'
@@ -8,16 +8,17 @@ import Sidebar from './Sidebar'
 
 import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
-import { allUsers, ClearErrors } from '../../actions/userActions'
-// import { DELETE_USER_RESET } from '../../constants/userConstants'
+import { allUsers, deleteUser, ClearErrors } from '../../actions/userActions'
+import { DELETE_USER_RESET } from '../../constants/userConstants'
 
-const UsersList = ({ history }) => {
+const UsersList = () => {
 
     const alert = useAlert();
+    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const { loading, error, users } = useSelector(state => state.allUsers);
-    // const { isDeleted } = useSelector(state => state.user)
+    const { isDeleted } = useSelector(state => state.user)
 
     useEffect(() => {
         dispatch(allUsers());
@@ -27,17 +28,17 @@ const UsersList = ({ history }) => {
             dispatch(ClearErrors())
         }
 
-        // if (isDeleted) {
-        //     alert.success('User deleted successfully');
-        //     history.push('/admin/users');
-        //     dispatch({ type: DELETE_USER_RESET })
-        // }
+        if (isDeleted) {
+            alert.success('User deleted successfully');
+            navigate('/admin/users');
+            dispatch({ type: DELETE_USER_RESET })
+        }
 
-    }, [dispatch, alert, error])
+    }, [dispatch, alert, error, isDeleted, navigate])
 
-    // const deleteUserHandler = (id) => {
-    //     dispatch(deleteUser(id))
-    // }
+    const deleteUserHandler = (id) => {
+        dispatch(deleteUser(id))
+    }
 
     const setUsers = () => {
         const data = {
@@ -81,7 +82,7 @@ const UsersList = ({ history }) => {
                     <Link to={`/admin/user/${user._id}`} className="btn btn-primary py-1 px-2">
                         <i className="fa fa-pencil"></i>
                     </Link>
-                    <button className="btn btn-danger py-1 px-2 ml-2" >
+                    <button className="btn btn-danger py-1 px-2 ml-2"  onClick={() => deleteUserHandler(user._id)}>
                         <i className="fa fa-trash"></i>
                     </button>
                 </Fragment>
