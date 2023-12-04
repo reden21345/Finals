@@ -35,6 +35,7 @@ import axios from 'axios';
 // Admin
 import Dashboard from './components/admin/Dashboard';
 import CoffeesList from './components/admin/CoffeesList';
+import NewCoffee from './components/admin/NewCoffee';
 
 // Payments
 import Payment from './components/cart/Payment';
@@ -58,6 +59,7 @@ function App() {
     getStripeApiKey();
 
   }, []);
+
 
   return (
     <Router>
@@ -151,6 +153,14 @@ function App() {
               element={
                 <ProtectedRoute isAdmin={true}>
                   <CoffeesList />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/coffee"
+              element={
+                <ProtectedRoute isAdmin={true}>
+                  <NewCoffee />
                 </ProtectedRoute>
               }
             />

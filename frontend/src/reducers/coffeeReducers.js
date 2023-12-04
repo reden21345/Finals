@@ -5,6 +5,10 @@ import {
     ADMIN_COFFEES_REQUEST,
     ADMIN_COFFEES_SUCCESS,
     ADMIN_COFFEES_FAIL,
+    NEW_COFFEE_REQUEST,
+    NEW_COFFEE_SUCCESS,
+    NEW_COFFEE_RESET,
+    NEW_COFFEE_FAIL,
     COFFEE_DETAILS_REQUEST,
     COFFEE_DETAILS_SUCCESS,
     COFFEE_DETAILS_FAIL,
@@ -56,6 +60,45 @@ export const CoffeesReducer = (state = { coffees: [] }, action) => {
 
         default:
             return state;
+    }
+}
+
+export const newCoffeeReducer = (state = { coffee: {} }, action) => {
+    switch (action.type) {
+
+        case NEW_COFFEE_REQUEST:
+            return {
+                ...state,
+                loading: true
+            }
+
+        case NEW_COFFEE_SUCCESS:
+            return {
+                loading: false,
+                success: action.payload.success,
+                coffee: action.payload.coffee
+            }
+
+        case NEW_COFFEE_FAIL:
+            return {
+                ...state,
+                error: action.payload
+            }
+
+        case NEW_COFFEE_RESET:
+            return {
+                ...state,
+                success: false
+            }
+
+        case CLEAR_ERRORS:
+            return {
+                ...state,
+                error: null
+            }
+
+        default:
+            return state
     }
 }
 

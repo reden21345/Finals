@@ -7,6 +7,10 @@ import {
     ADMIN_COFFEES_REQUEST,
     ADMIN_COFFEES_SUCCESS,
     ADMIN_COFFEES_FAIL,
+    NEW_COFFEE_REQUEST,
+    NEW_COFFEE_SUCCESS,
+    NEW_COFFEE_RESET,
+    NEW_COFFEE_FAIL,
     COFFEE_DETAILS_REQUEST,
     COFFEE_DETAILS_SUCCESS,
     COFFEE_DETAILS_FAIL,
@@ -44,6 +48,33 @@ export const getCoffees = (keyword = '', currentPage = 1, price, category, ratin
             type: ALL_COFFEES_FAIL,
             payload: error.response.data.message
         });
+    }
+}
+
+// Create New Coffee
+export const newCoffee = (coffeeData) => async (dispatch) => {
+    try {
+
+        dispatch({ type: NEW_COFFEE_REQUEST })
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+
+        const { data } = await axios.post(`/api/v1/admin/coffee/new`, coffeeData, config)
+
+        dispatch({
+            type: NEW_COFFEE_SUCCESS,
+            payload: data
+        })
+
+    } catch (error) {
+        dispatch({
+            type: NEW_COFFEE_FAIL,
+            payload: error.response.data.message
+        })
     }
 }
 
@@ -115,6 +146,8 @@ export const getAdminCoffees = () => async (dispatch) => {
         })
     }
 }
+
+
 
 // Clear Errors 
 export const ClearErrors = () => async (dispatch) => {
