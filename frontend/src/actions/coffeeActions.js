@@ -27,7 +27,6 @@ import {
     GET_REVIEWS_FAIL,
     DELETE_REVIEW_REQUEST,
     DELETE_REVIEW_SUCCESS,
-    DELETE_REVIEW_RESET,
     DELETE_REVIEW_FAIL,
     CLEAR_ERRORS
 } from '../constants/coffeeConstants'
@@ -230,7 +229,29 @@ export const getCoffeeReviews = (id) => async (dispatch) => {
     }
 }
 
+// Delete coffee review
+export const deleteReview = (id, coffeeId) => async (dispatch) => {
+    try {
 
+        dispatch({ type: DELETE_REVIEW_REQUEST })
+
+        const { data } = await axios.delete(`/api/v1/reviews?id=${id}&coffeeId=${coffeeId}`)
+
+        dispatch({
+            type: DELETE_REVIEW_SUCCESS,
+            payload: data.success
+        })
+
+    } catch (error) {
+
+        console.log(error.response);
+
+        dispatch({
+            type: DELETE_REVIEW_FAIL,
+            payload: error.response.data.message
+        })
+    }
+}
 
 // Clear Errors 
 export const ClearErrors = () => async (dispatch) => {
