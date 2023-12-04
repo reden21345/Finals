@@ -40,6 +40,7 @@ import UpdateCoffee from './components/admin/UpdateCoffee';
 import OrdersList from './components/admin/OrdersList';
 import ProcessOrder from './components/admin/ProcessOrder';
 import UsersList from './components/admin/UsersList';
+import UpdateUser from './components/admin/UpdateUser';
 
 // Payments
 import Payment from './components/cart/Payment';
@@ -197,6 +198,14 @@ function App() {
               element={
                 <ProtectedRoute isAdmin={true}>
                   <UsersList />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/user/:id"
+              element={
+                <ProtectedRoute isAdmin={true}>
+                  <UpdateUser />
                 </ProtectedRoute>
               }
             />
