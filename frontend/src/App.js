@@ -37,6 +37,7 @@ import Dashboard from './components/admin/Dashboard';
 import CoffeesList from './components/admin/CoffeesList';
 import NewCoffee from './components/admin/NewCoffee';
 import UpdateCoffee from './components/admin/UpdateCoffee';
+import OrdersList from './components/admin/OrdersList';
 
 // Payments
 import Payment from './components/cart/Payment';
@@ -170,6 +171,14 @@ function App() {
               element={
                 <ProtectedRoute isAdmin={true}>
                   <UpdateCoffee />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/orders"
+              element={
+                <ProtectedRoute isAdmin={true}>
+                  <OrdersList />
                 </ProtectedRoute>
               }
             />
