@@ -8,8 +8,8 @@ import Sidebar from './Sidebar'
 
 import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAdminCoffees, ClearErrors } from '../../actions/coffeeActions'
-// import { DELETE_coffee_RESET } from '../../constants/coffeeConstants'
+import { getAdminCoffees, deleteCoffee, ClearErrors } from '../../actions/coffeeActions'
+import { DELETE_COFFEE_RESET } from '../../constants/coffeeConstants'
 
 const CoffeesList = () => {
 
@@ -18,7 +18,7 @@ const CoffeesList = () => {
     const navigate = useNavigate();
 
     const { loading, error, coffees } = useSelector(state => state.coffees);
-    // const { error: deleteError, isDeleted } = useSelector(state => state.coffee)
+    const { error: deleteError, isDeleted } = useSelector(state => state.coffee)
 
     useEffect(() => {
         dispatch(getAdminCoffees());
@@ -28,18 +28,18 @@ const CoffeesList = () => {
             dispatch(ClearErrors())
         }
 
-        // if (deleteError) {
-        //     alert.error(deleteError);
-        //     dispatch(clearErrors())
-        // }
+        if (deleteError) {
+            alert.error(deleteError);
+            dispatch(ClearErrors())
+        }
 
-        // if (isDeleted) {
-        //     alert.success('coffee deleted successfully');
-        //     navigate('/admin/coffees');
-        //     dispatch({ type: DELETE_coffee_RESET })
-        // }
+        if (isDeleted) {
+            alert.success('Coffee deleted successfully');
+            navigate('/admin/coffees');
+            dispatch({ type: DELETE_COFFEE_RESET })
+        }
 
-    }, [dispatch, alert, error, navigate])
+    }, [dispatch, alert, error, navigate, deleteError, isDeleted])
 
     const setcoffees = () => {
         const data = {
@@ -82,7 +82,7 @@ const CoffeesList = () => {
                     <Link to={`/admin/coffee/${coffee._id}`} className="btn btn-primary py-1 px-2">
                         <i className="fa fa-pencil"></i>
                     </Link>
-                    <button className="btn btn-danger py-1 px-2 ml-2" >
+                    <button className="btn btn-danger py-1 px-2 ml-2" onClick={() => deleteCoffeeHandler(coffee._id)}>
                         <i className="fa fa-trash"></i>
                     </button>
                 </Fragment>
@@ -92,9 +92,9 @@ const CoffeesList = () => {
         return data;
     }
 
-    // const deletecoffeeHandler = (id) => {
-    //     dispatch(deletecoffee(id))
-    // }
+    const deleteCoffeeHandler = (id) => {
+        dispatch(deleteCoffee(id))
+    }
 
     return (
         <Fragment>

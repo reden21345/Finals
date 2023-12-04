@@ -9,14 +9,19 @@ import {
     ADMIN_COFFEES_FAIL,
     NEW_COFFEE_REQUEST,
     NEW_COFFEE_SUCCESS,
-    NEW_COFFEE_RESET,
     NEW_COFFEE_FAIL,
+    DELETE_COFFEE_REQUEST,
+    DELETE_COFFEE_SUCCESS,
+    DELETE_COFFEE_FAIL,
+    UPDATE_COFFEE_REQUEST,
+    UPDATE_COFFEE_SUCCESS,
+    UPDATE_COFFEE_RESET,
+    UPDATE_COFFEE_FAIL,
     COFFEE_DETAILS_REQUEST,
     COFFEE_DETAILS_SUCCESS,
     COFFEE_DETAILS_FAIL,
     NEW_REVIEW_REQUEST,
     NEW_REVIEW_SUCCESS,
-    NEW_REVIEW_RESET,
     NEW_REVIEW_FAIL,
     CLEAR_ERRORS
 } from '../constants/coffeeConstants'
@@ -51,7 +56,7 @@ export const getCoffees = (keyword = '', currentPage = 1, price, category, ratin
     }
 }
 
-// Create New Coffee
+// Create New Coffee (Admin)
 export const newCoffee = (coffeeData) => async (dispatch) => {
     try {
 
@@ -78,6 +83,27 @@ export const newCoffee = (coffeeData) => async (dispatch) => {
     }
 }
 
+// Delete coffee (Admin)
+export const deleteCoffee = (id) => async (dispatch) => {
+    try {
+
+        dispatch({ type: DELETE_COFFEE_REQUEST })
+
+        const { data } = await axios.delete(`/api/v1/admin/coffee/${id}`)
+
+        dispatch({
+            type: DELETE_COFFEE_SUCCESS,
+            payload: data.success
+        })
+
+    } catch (error) {
+        dispatch({
+            type: DELETE_COFFEE_FAIL,
+            payload: error.response.data.message
+        })
+    }
+}
+
 // Get Coffee Details
 export const getCoffeeDetails = (id) => async (dispatch) => {
     try {
@@ -99,6 +125,7 @@ export const getCoffeeDetails = (id) => async (dispatch) => {
         });
     }
 }
+
 
 export const newReview = (reviewData) => async (dispatch) => {
     try {

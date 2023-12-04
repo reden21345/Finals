@@ -120,6 +120,11 @@ exports.deleteCoffee = catchAsyncErrors (async (req, res, next) => {
         return next(new ErrorHandler('Coffee not Found', 400));
     };
 
+     // Deleting images associated with the coffee
+     for (let i = 0; i < coffee.images.length; i++) {
+        const result = await cloudinary.v2.uploader.destroy(coffee.images[i].public_id)
+    }
+
     res.status(200).json({
         success: true,
         message: "Coffee is deleted."

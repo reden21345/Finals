@@ -9,6 +9,14 @@ import {
     NEW_COFFEE_SUCCESS,
     NEW_COFFEE_RESET,
     NEW_COFFEE_FAIL,
+    DELETE_COFFEE_REQUEST,
+    DELETE_COFFEE_SUCCESS,
+    DELETE_COFFEE_RESET,
+    DELETE_COFFEE_FAIL,
+    UPDATE_COFFEE_REQUEST,
+    UPDATE_COFFEE_SUCCESS,
+    UPDATE_COFFEE_RESET,
+    UPDATE_COFFEE_FAIL,
     COFFEE_DETAILS_REQUEST,
     COFFEE_DETAILS_SUCCESS,
     COFFEE_DETAILS_FAIL,
@@ -89,6 +97,61 @@ export const newCoffeeReducer = (state = { coffee: {} }, action) => {
             return {
                 ...state,
                 success: false
+            }
+
+        case CLEAR_ERRORS:
+            return {
+                ...state,
+                error: null
+            }
+
+        default:
+            return state
+    }
+}
+
+export const coffeeReducer = (state = {}, action) => {
+    switch (action.type) {
+
+        case DELETE_COFFEE_REQUEST:
+        case UPDATE_COFFEE_REQUEST:
+            return {
+                ...state,
+                loading: true
+            }
+
+        case DELETE_COFFEE_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                isDeleted: action.payload
+            }
+
+        case UPDATE_COFFEE_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                isUpdated: action.payload
+            }
+
+
+        case DELETE_COFFEE_FAIL:
+        case UPDATE_COFFEE_FAIL:
+            return {
+                ...state,
+                error: action.payload
+            }
+
+        case DELETE_COFFEE_RESET:
+            return {
+                ...state,
+                isDeleted: false
+            }
+
+        case UPDATE_COFFEE_RESET:
+            return {
+                ...state,
+                isUpdated: false
             }
 
         case CLEAR_ERRORS:
