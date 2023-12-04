@@ -1,21 +1,26 @@
 import React, {useState} from 'react'
 import { Navigate } from 'react-router-dom'
 
+import { useAlert } from 'react-alert'
 import Loader from '../layout/Loader'
-import { getUser } from '../../utils/helpers';
+import { useSelector } from 'react-redux'
 
-const ProtectedRoute = ({ children, isAdmin = false }) => {
-    const [loading, setLoading] = useState(getUser() === false && false )
-    const [error, setError] = useState('')
-    const [user, setUser] = useState(getUser())
-    const [isAuthenticated, setIsAuthenticated] = useState(false)
+const ProtectedRoute = ({ children, isAdmin }) => {
+
+    const alert = useAlert();
+
+    const { isAuthenticated, loading, user } = useSelector(state => state.auth)
+
     console.log(children.type.name, loading)
     
     if (loading === false) {
-        if (!user) {
+
+        if (isAuthenticated === false) {
             return <Navigate to='/login' />
         }
+
         if (isAdmin === true && user.role !== 'admin') {
+            alert.error('You are not an Admin');
             return <Navigate to='/' />
         }
         return children

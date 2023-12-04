@@ -96,10 +96,18 @@ function App() {
 
         </div>
 
+        {/* Admin Routes */}
           <Routes>
-            <Route path="/dashboard" element={<Dashboard />} exact/>
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute isAdmin={true}>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            />
           </Routes>
-          
+
         <Footer />
       </div>
     </Router>
