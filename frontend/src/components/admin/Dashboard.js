@@ -13,6 +13,7 @@ import { allUsers } from '../../actions/userActions';
 // Charts
 import CoffeeSalesChart from './CoffeeSalesChart';
 import UserSalesChart from './UserSalesChart';
+import MonthlySalesChart from './MonthlySalesChart';
 
 const Dashboard = () => {
 
@@ -127,6 +128,11 @@ const Dashboard = () => {
                     <Fragment>
                         <div className="text-center card-font-size">User Sales Chart<br />
                             <UserSalesChart />
+                        </div>
+                    </Fragment>
+                    <Fragment>
+                        <div className="text-center card-font-size">Monthly Sales Chart<br />
+                            <MonthlySalesChart />
                         </div>
                     </Fragment>
 
