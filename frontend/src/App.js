@@ -41,6 +41,7 @@ import OrdersList from './components/admin/OrdersList';
 import ProcessOrder from './components/admin/ProcessOrder';
 import UsersList from './components/admin/UsersList';
 import UpdateUser from './components/admin/UpdateUser';
+import CoffeeReviews from './components/admin/CoffeeReviews';
 
 // Payments
 import Payment from './components/cart/Payment';
@@ -206,6 +207,14 @@ function App() {
               element={
                 <ProtectedRoute isAdmin={true}>
                   <UpdateUser />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/reviews"
+              element={
+                <ProtectedRoute isAdmin={true}>
+                  <CoffeeReviews />
                 </ProtectedRoute>
               }
             />
