@@ -69,19 +69,9 @@ function App() {
             <Route path="/coffee/:id" element={<CoffeeDetails />} exact />
 
             <Route path="/cart" element={<Cart />} exact />
-            <Route path="/shipping" element={<Shipping />} />
-            <Route path="/order/confirm" element={<ConfirmOrder />} />
-            <Route path="/success" element={<OrderSuccess />} />
-
-            <Route path="/orders/me" element={<ListOrders />} exact/>
-            <Route path="/order/:id" element={<OrderDetails />} exact/>
-
 
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/me" element={<Profile />} exact/>
-            <Route path="/me/update" element={<UpdateProfile />} exact/>
-            <Route path="/password/update" element={<UpdatePassword />} exact/>
             <Route path="/password/forgot" element={<ForgotPassword />} exact/>
             <Route path="/password/reset/:token" element={<NewPassword />} exact/>
 
@@ -89,10 +79,67 @@ function App() {
           {stripeApiKey &&
               <Elements stripe={loadStripe(stripeApiKey)}>
                 <Routes>
-                  <Route path="/payment" element={<Payment/>} />
+                  <Route path="/payment" 
+                  element={
+                    <ProtectedRoute >
+                      <Payment />
+                    </ProtectedRoute>
+                  } />
                 </Routes>
               </Elements>
           }
+
+          {/* User Routes */}
+          <Routes>
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute isAdmin={true}>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="/me" element={
+                <ProtectedRoute >
+                  <Profile />
+                </ProtectedRoute>
+              } exact/>
+            <Route path="/me/update" element={
+                <ProtectedRoute >
+                  <UpdateProfile />
+                </ProtectedRoute>
+              } exact/>
+            <Route path="/orders/me" element={
+                <ProtectedRoute >
+                  <ListOrders />
+                </ProtectedRoute>
+              } exact/>
+            <Route path="/order/:id" element={
+                <ProtectedRoute >
+                  <OrderDetails />
+                </ProtectedRoute>
+              } exact/>
+            <Route path="/password/update" element={
+                <ProtectedRoute >
+                  <UpdatePassword />
+                </ProtectedRoute>
+              } exact/>
+            <Route path="/shipping" element={
+                <ProtectedRoute >
+                  <Shipping />
+                </ProtectedRoute>
+              } />
+            <Route path="/order/confirm" element={
+                <ProtectedRoute >
+                  <ConfirmOrder />
+                </ProtectedRoute>
+              } />
+            <Route path="/success" element={
+                <ProtectedRoute >
+                  <OrderSuccess />
+                </ProtectedRoute>
+              } />
+          </Routes>
 
         </div>
 
