@@ -99,6 +99,38 @@ exports.updateCoffee = catchAsyncErrors (async (req, res, next) => {
         return next(new ErrorHandler('Coffee not Found', 400));
     };
 
+    let images = []
+    if (typeof req.body.images === 'string') {
+        images.push(req.body.images)
+    } else {
+        images = req.body.images
+    }
+
+    if (images !== undefined) {
+
+        // Deleting images associated with the coffee
+        for (let i = 0; i < coffee.images.length; i++) {
+            const result = await cloudinary.v2.uploader.destroy(coffee.images[i].public_id)
+        }
+
+        let imagesLinks = [];
+
+        for (let i = 0; i < images.length; i++) {
+            const result = await cloudinary.v2.uploader.upload(images[i], {
+                folder: 'coffees'
+            });
+
+            imagesLinks.push({
+                public_id: result.public_id,
+                url: result.secure_url
+            })
+        }
+
+        req.body.images = imagesLinks
+
+    }
+
+
     coffee = await Coffee.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
         runValidators: true,

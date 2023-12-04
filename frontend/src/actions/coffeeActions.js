@@ -15,7 +15,6 @@ import {
     DELETE_COFFEE_FAIL,
     UPDATE_COFFEE_REQUEST,
     UPDATE_COFFEE_SUCCESS,
-    UPDATE_COFFEE_RESET,
     UPDATE_COFFEE_FAIL,
     COFFEE_DETAILS_REQUEST,
     COFFEE_DETAILS_SUCCESS,
@@ -99,6 +98,34 @@ export const deleteCoffee = (id) => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: DELETE_COFFEE_FAIL,
+            payload: error.response.data.message
+        })
+    }
+}
+
+// Update coffee (Admin)
+export const updateCoffee = (id, coffeeData) => async (dispatch) => {
+    try {
+
+        dispatch({ type: UPDATE_COFFEE_REQUEST })
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+
+        const { data } = await axios.put(`/api/v1/admin/coffee/${id}`, coffeeData, config)
+
+        dispatch({
+            type: UPDATE_COFFEE_SUCCESS,
+            payload: data.success
+        })
+
+    } catch (error) {
+        console.log(error)
+        dispatch({
+            type: UPDATE_COFFEE_FAIL,
             payload: error.response.data.message
         })
     }

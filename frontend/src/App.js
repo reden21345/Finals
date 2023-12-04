@@ -36,6 +36,7 @@ import axios from 'axios';
 import Dashboard from './components/admin/Dashboard';
 import CoffeesList from './components/admin/CoffeesList';
 import NewCoffee from './components/admin/NewCoffee';
+import UpdateCoffee from './components/admin/UpdateCoffee';
 
 // Payments
 import Payment from './components/cart/Payment';
@@ -161,6 +162,14 @@ function App() {
               element={
                 <ProtectedRoute isAdmin={true}>
                   <NewCoffee />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/coffee/:id"
+              element={
+                <ProtectedRoute isAdmin={true}>
+                  <UpdateCoffee />
                 </ProtectedRoute>
               }
             />
