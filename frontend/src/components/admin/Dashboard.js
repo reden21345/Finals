@@ -10,7 +10,9 @@ import { getAdminCoffees } from '../../actions/coffeeActions';
 import { allOrders } from '../../actions/orderActions';
 import { allUsers } from '../../actions/userActions';
 
+// Charts
 import CoffeeSalesChart from './CoffeeSalesChart';
+import UserSalesChart from './UserSalesChart';
 
 const Dashboard = () => {
 
@@ -118,8 +120,13 @@ const Dashboard = () => {
                     )}
 
                     <Fragment>
-                        <div className="text-center card-font-size">Sales Chart<br />
+                        <div className="text-center card-font-size">Coffee Sales Chart<br />
                             <CoffeeSalesChart />
+                        </div>
+                    </Fragment>
+                    <Fragment>
+                        <div className="text-center card-font-size">User Sales Chart<br />
+                            <UserSalesChart />
                         </div>
                     </Fragment>
 
